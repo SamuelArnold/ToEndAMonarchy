@@ -6,7 +6,7 @@
  * This source requires Phaser 2.6.2
  */
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(1080, 1920, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
 ///var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create });
 var level =0;
@@ -52,10 +52,14 @@ function preload() {
 	game.load.image('Play', 'Image3.jpg');
     game.load.image('card0', 'card0.jpg');
 	game.load.image('card1', 'card1.jpg');
+	game.load.image('Char1', 'Char1.jpg');
+	game.load.image('Char2', 'Char2.jpg');
 	//card0.scale.setTo(.5 , .5);  
 }
 
 function create() {
+	   button = game.add.button(50, 100, 'Char1', 0, this, 2, 1, 0);
+	   button = game.add.button(850, 100, 'Char2', 0, this, 2, 1, 0);
        button = game.add.button(game.world.centerX - 100, 500, 'Attack', actionOnClick, this, 2, 1, 0);
 	   button = game.add.button(game.world.centerX - 0, 500, 'Draw', drawCard, this, 2, 1, 0);
 	   button = game.add.button(game.world.centerX + 100, 500, 'Play', playCard, this, 2, 1, 0);
@@ -128,28 +132,30 @@ function update() {
   var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
  var style2 = { font: "18px Times New Roman", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle",stroke : '#000000',strokeThickness: 0 };
   
-    text = game.add.text(0, 0, "The End Of A Monarchy (TEOAM)", style);
+    text = game.add.text(0, 0, "To End A Monarchy (TEAM)", style);
     text = game.add.text(0, 50, "Created by Sammy", style2);
     
   //  game.add.text( 160, 50, e.name, style2);
  //   game.add.text( 160, 70, "Health: " + e.health, style2);
-   game.debug.text( e.name, 160, 50, 'rgb(0,255,0)');
-    game.debug.text( "Health: " + e.health, 160, 70, 'rgb(0,255,0)');
-     game.debug.text("Hand: " + e.hand[0].name /*+ e.hand[1]+ e.hand[2]*/, 50, 120, 'rgb(0,255,0)');
+   game.debug.text( e.name, 300, 100, 'rgb(255,255,255)');
+    game.debug.text( "Health: " + e.health, 300, 150,  'rgb(255,255,255)');
+     game.debug.text("Hand: " + e.hand[0].name /*+ e.hand[1]+ e.hand[2]*/, 300, 200,  'rgb(255,255,255)');
+	 game.debug.text("Hand: " + e.hand[1].name /*+ e.hand[1]+ e.hand[2]*/, 300, 225,  'rgb(255,255,255)');
+	  game.debug.text("Hand: " + e.hand[2].name /*+ e.hand[1]+ e.hand[2]*/, 300, 250,  'rgb(255,255,255)');
      // Enemy
-     game.debug.text(p.name, 460, 50, 'rgb(0,255,0)');
-     game.debug.text("Health: " + p.health, 460, 70, 'rgb(0,255,0)');
+     game.debug.text(p.name, 600, 100,  'rgb(255,255,255)');
+     game.debug.text("Health: " + p.health, 600, 150, 'rgb(255,255,255)');
      // phase
         // game.add.text(360, 90, "phase: "+ phase  + " turn: " + turn, style2);
-    game.debug.text("phase: "+ phase  + " turn: " + turn, 360, 90, 'rgb(0,255,0)');   
-	game.debug.text("Discard Pile: " + discard[discard.length-1].name, 360, 200, 'rgb(0,255,0)');  
+    game.debug.text("phase: "+ phase  + " turn: " + turn, 360, 350,  'rgb(255,255,255)');
+	game.debug.text("Discard Pile: " + discard[discard.length-1].name, 360, 400,  'rgb(255,255,255)');
 	if (e.health < 1) {
-			    game.debug.text( "lost", 160, 140, 'rgb(0,255,0)');
+			    game.debug.text( "lost", 160, 140,  'rgb(255,255,255)');
 						alert(p.name+"won!");
 	}
 	if	(p.health < 1){
 			alert(e.name+"won!");
-		game.debug.text( "lost", 460, 140, 'rgb(0,255,0)');
+		game.debug.text( "lost", 460, 140,  'rgb(255,255,255)');
 	}
 }
 
