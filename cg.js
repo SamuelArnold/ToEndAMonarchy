@@ -42,7 +42,7 @@ class myCard {
         this.desc1 = "";
         this.desc2 = "";
         this.set = 6;
-		this.handno =0; 
+		this.handno =2; 
     }
     playThis()
     {
@@ -60,11 +60,13 @@ class myCard {
             if (turn == e.name)
                 e.health = e.health + Math.floor((Math.random() * 20) + 1);
         }
+		updateText();
 		// push card from hand to discard pile
-		discard.push(e.hand[0]);
+		discard.push(e.hand[this.handno]);
         this.destroyCard();
         //this = 0;
 		// add dumb text
+		updateText();
 			testMessageBox("you played The " + this.name);
     }
 	updateCard(){
@@ -74,33 +76,39 @@ class myCard {
     createCard()
     {
         if (this.name == "Beast") {
-            this.myimage = game.add.button( this.handno * 100 + 50, 780, 'card1', playCard, this, 2, 1, 0);
+            this.myimage = game.add.button( this.handno * 100 + 50, 780, 'card1', this.playThis, this, 2, 1, 0);
 			     this.desc1= "This card Halves Enemies Health. Really OP";
 				 this.desc2 = "The Beast represents the evil destructive nature that enters your life";
+				 updateText();
         }
         else if (this.name == "Sword") {
-            this.myimage = game.add.button(this.handno * 100 + 50, 780, 'card3', playCard, this, 2, 1, 0);
+            this.myimage = game.add.button(this.handno * 100 + 50, 780, 'card3', this.playThis, this, 2, 1, 0);
 			this.desc1= "This card Doubles the next attack damage";
 			this.desc2 = "The Sword represents the ability to cut and divide Evil from Good.";
+			updateText();
         }
         else if (this.name == "Queen") {
-            this.myimage = game.add.button( this.handno * 100 + 50, 780, 'card5', playCard, this, 2, 1, 0);
+            this.myimage = game.add.button( this.handno * 100 + 50, 780, 'card5', this.playThis, this, 2, 1, 0);
 			this.desc1= "This card Heals the player with a random dice roll (d20)";
 			this.desc2 = "The Queen's Heart Represents the Nurturing nature that restores the soul from Corruption";
+			updateText();
         }
         else {
-            this.myimage = game.add.button( this.handno * 100 + 50, 780, 'card2', playCard, this, 2, 1, 0);
+            this.myimage = game.add.button( this.handno * 100 + 50, 780, 'card2', this.playThis, this, 2, 1, 0);
         }
 		 //alert("you drew the " + this.name);
 		 //this.myimage.x = handno * 100; 
-        this.mybutton = game.add.button(this.myimage.x, this.myimage.y - 50, 'Play', playCard, this, 2, 1, 0);
+		updateText();
+        this.mybutton = game.add.button(this.myimage.x, this.myimage.y - 50, 'Play', this.playThis, this, 2, 1, 0);
 		testMessageBox("you drew The " + this.name + "\n\n Effect: " + this.desc1+ "\n\n Lore: " +this.desc2);
+		updateText();
        
     }
     destroyCard()
     {
         this.myimage.destroy();
         this.mybutton.destroy();
+		e.hand[this.handno] = 0;
         //this.destroy();
     }
 }
@@ -260,8 +268,34 @@ function drawCard()
             if (e.hand[0] == 0) {
                 e.hand[0] = Deck[0];
                 Deck.shift();
-               e.hand[0].createCard();
+                e.hand[0].createCard();
                 e.drewcard = true;
+				e.hand[0].handno = 0; 
+				e.hand[0].updateCard();
+           }
+		   else if (e.hand[1] == 0) {
+                e.hand[1] = Deck[0];
+                Deck.shift();
+                e.hand[1].createCard();
+                e.drewcard = true;
+				e.hand[1].handno = 1; 
+				e.hand[1].updateCard();
+           }
+		   else if (e.hand[2] == 0) {
+                e.hand[2] = Deck[0];
+                Deck.shift();
+                e.hand[2].createCard();
+                e.drewcard = true;
+				e.hand[2].handno = 2; 
+				e.hand[2].updateCard();
+           }
+		     else if (e.hand[3] == 0) {
+                e.hand[3] = Deck[0];
+                Deck.shift();
+                e.hand[3].createCard();
+                e.drewcard = true;
+				e.hand[3].handno = 3; 
+				e.hand[3].updateCard();
            }
         }
         else {
@@ -281,11 +315,11 @@ function enemyTurn()
 function playCard()
 {
     if (turn == e.name) {
-        if (e.hand[0] != 0) {
+      //  if (e.hand[0] != 0) {
 
-            e.hand[0].playThis();
-            e.hand[0] = 0;
-        }
+          //  e.hand[0].playThis();
+           // e.hand[0] = 0;
+      //  }
     }
     else
 		testMessageBox("Not your Turn!");
